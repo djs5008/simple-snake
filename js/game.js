@@ -136,7 +136,7 @@ class Game {
       this.buffer.graphics.beginFill('rgba(255,255,255,' + opacity + ')');
       this.buffer.graphics.drawRect(bit.x * BITSIZE, bit.y * BITSIZE, BITSIZE, BITSIZE);
       this.buffer.graphics.endFill();
-      opacity -= 1.0 / (this.snake.body.length + 1);
+      opacity -= 1.0 / (this.snake.body.length + (this.snake.body.length / 5));
     });
 
     // Draw food
