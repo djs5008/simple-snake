@@ -1,2 +1,5 @@
 # simple-snake
-Simple snake game made in Javascript
+A simple snake game made in Javascript
+
+# Demo
+https://jsfiddle.net/cp3xqo68/6/
