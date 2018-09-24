@@ -1,7 +1,7 @@
 # simple-snake
 A simple snake game made in Javascript
 
-![simple-snake](https://i.imgur.com/IhABHvc.png)
+![simple-snake](https://i.imgur.com/zgIXICq.gif)
 
 # Demo
 https://jsfiddle.net/cp3xqo68/8/
