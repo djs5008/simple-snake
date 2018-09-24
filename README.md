@@ -6,16 +6,18 @@ https://jsfiddle.net/cp3xqo68/6/
 
 # How to make
 
-### Clone Repository
-### Navigate to cloned directory
+1. ### Clone Repository
 
-### Install required dependencies (via npm)
-```
-npm install
-```
+2. ### Navigate to cloned directory
 
-### Build webpack bundle
-```
-npm run build
-```
-### Run index.html
+3. ### Install required dependencies (via npm)
+  ```
+  npm install
+  ```
+
+4. ### Build webpack bundle
+  ```
+  npm run build
+  ```
+
+5. ### Open index.html
