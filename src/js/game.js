@@ -9,8 +9,10 @@ import { Food } from './food.js';
 //////////////
 const CANVAS_WIDTH  = 500;  // Width of canvas
 const CANVAS_HEIGHT = 500;  // Height of canvas
-const UPDATE_RATE   = 100; // Rate of game-logic updates
+const UPDATE_RATE   = 75;   // Rate of game-logic updates
 const BITSIZE       = 20;   // Size of snake bits
+const BOARD_WIDTH   = CANVAS_WIDTH / BITSIZE;
+const BOARD_HEIGHT  = CANVAS_HEIGHT / BITSIZE;
 
 /**
  * Game class
@@ -21,7 +23,7 @@ class Game {
   constructor() {
     this.stage  = new createjs.StageGL('game');
     this.buffer = new createjs.Shape();
-    this.snake  = new Snake(Math.floor(((CANVAS_WIDTH / BITSIZE) / 2)), Math.floor(((CANVAS_HEIGHT / BITSIZE) / 2)));
+    this.snake  = new Snake(Math.floor((BOARD_WIDTH / 2)), Math.floor((BOARD_HEIGHT / 2)));
     this.food   = undefined;
 
     // Add buffer to stage
@@ -70,15 +72,13 @@ class Game {
    * Spawn food for the snake
    */
   spawnFood() {
-    let randX = Math.floor(Math.random() * CANVAS_WIDTH);
-    let randY = Math.floor(Math.random() * CANVAS_HEIGHT);
-    let foodX = randX - (randX % BITSIZE);
-    let foodY = randY - (randY % BITSIZE);
+    let foodX = Math.floor(Math.random() * BOARD_WIDTH);
+    let foodY = Math.floor(Math.random() * BOARD_HEIGHT);
     
     // Check if we just spawned the food on an area already occupied
     let mustRespawn = false;
     this.snake.body.forEach(bit => {
-      if (foodX / BITSIZE === bit.x && foodY / BITSIZE === bit.y) {
+      if (foodX === bit.x && foodY === bit.y) {
         mustRespawn = true;
         return;
       }
@@ -104,8 +104,8 @@ class Game {
       this.spawnFood();
     } else {
       // Eat food
-      if (this.snake.body[0].x === this.food.x / BITSIZE) {
-        if (this.snake.body[0].y === this.food.y / BITSIZE) {
+      if (this.snake.body[0].x === this.food.x) {
+        if (this.snake.body[0].y === this.food.y) {
           this.food = undefined;
           this.snake.grow();
         }
@@ -114,7 +114,7 @@ class Game {
 
     // Update snake position
     let boundaries_min = { x: 0, y: 0 };
-    let boundaries_max = { x: CANVAS_WIDTH/BITSIZE, y: CANVAS_HEIGHT/BITSIZE };
+    let boundaries_max = { x: BOARD_WIDTH, y: BOARD_HEIGHT };
     this.snake.move(boundaries_min, boundaries_max);
   }
 
@@ -143,7 +143,7 @@ class Game {
     // ( Food may be undefined, if so handle on next game update )
     if (this.food != null) {
       this.buffer.graphics.beginFill('hsl(' + this.food.hue + ', 100%, 50%)');
-      this.buffer.graphics.drawRect(this.food.x, this.food.y, BITSIZE, BITSIZE);
+      this.buffer.graphics.drawRect(this.food.x * BITSIZE, this.food.y * BITSIZE, BITSIZE, BITSIZE);
       this.buffer.graphics.endFill();
       this.food.hue = (this.food.hue + 2 % 360);
     }
